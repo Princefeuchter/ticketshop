@@ -6,5 +6,8 @@ export default defineNuxtConfig({
     public: {
       apiBase: '/api'
     }
-  }
+  },
+  modules:[
+    '@nuxtjs/tailwindcss',
+  ]
 })
