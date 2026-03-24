@@ -1,23 +1,40 @@
 <template>
   <div>
-    <nav>
-      <ul class="flex space-x-4">
-        <li>
-          <NuxtLink to="/" class="text-gray-700 hover:text-gray-900">Home</NuxtLink>
-        </li>
-        <li>
-          <NuxtLink to="/tickets" class="text-gray-700 hover:text-gray-900">Tickets</NuxtLink>
-        </li>
-        <li>
-          <NuxtLink to="/contact" class="text-gray-700 hover:text-gray-900">Contact</NuxtLink>
-        </li>
-      </ul>
-    </nav>
+    <UHeader>
+      <template #title>
+        <span class="text-xl font-bold">Leveste Feste</span>
+      </template>
+
+      <UNavigationMenu :items="items" />
+    </UHeader>
   </div>
 </template>
 
 <script lang="ts" setup>
+  import type { NavigationMenuItem } from '@nuxt/ui'
 
+  const route = useRoute()
+
+  const items = computed<NavigationMenuItem[]>(() => [
+    {
+      title: 'Home',
+      icon: 'i-mdi-home-variant',
+      to: '/',
+      active: route.path === '/'
+    },
+    {
+      title: 'Tickets',
+      icon: 'i-mdi-ticket',
+      to: '/tickets',
+      active: route.path === '/tickets'
+    },
+    {
+      title: 'Kontakt',
+      icon: 'i-mdi-email',
+      to: '/contact',
+      active: route.path === '/contact'
+    }
+  ])
 </script>
 
 <style>
