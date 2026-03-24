@@ -33,6 +33,12 @@
       icon: 'i-mdi-email',
       to: '/contact',
       active: route.path === '/contact'
+    },
+    {
+      title: 'login',
+      icon: 'i-mdi-account',
+      to: '/login',
+      active: route.path === '/login'
     }
   ])
 </script>

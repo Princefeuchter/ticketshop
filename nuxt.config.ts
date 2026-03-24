@@ -7,10 +7,7 @@ export default defineNuxtConfig({
       apiBase: '/api'
     }
   },
-  modules:[
-    '@nuxtjs/color-mode',
-    '@nuxt/ui'
-  ],
+  modules:['@nuxtjs/color-mode', '@nuxt/ui', 'nuxt-auth-utils'],
 
   css: [
     '~/assets/css/main.css'
