@@ -1,7 +1,7 @@
 <template>
   <div v-if="loggedIn">
     <h1 class="text-4xl font-bold text-center mt-10">
-      Willkommen, {{ user.login }}!
+      Du bist eingeloggt!
     </h1>
     <p class="text-center mt-4">Du bist eingeloggt und kannst deine Tickets verwalten.</p>
     <div class="flex justify-center mt-6">
