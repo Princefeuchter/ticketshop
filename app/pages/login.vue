@@ -23,7 +23,9 @@
           <UInput v-model="state.password" type="password" placeholder="Dein Passwort" />
         </UFormField>
         <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Login</button>
-
+        <div class="mt-6 text-center">
+          <p>Noch keinen Account? <NuxtLink to="/register" class="text-blue-500 hover:underline">Registrieren</NuxtLink></p>
+      </div>
       </UForm>
     </div>
   </div>
@@ -71,6 +73,8 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       description: 'Login erfolgreich!',
       color: 'success'
     })
+
+    window.location.reload()
   } catch (error) {
     console.error('Login failed:', error)
     toast.add({
