@@ -58,12 +58,42 @@ type Schema = z.infer<typeof login>
 const toast = useToast()
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
-  toast.add({
-    title: 'Login',
-    description: 'Login erfolgreich!',
-    color: 'success'
-  })
   console.log(event.data)
+
+  try{
+    const fetchResult = await $fetch('/api/login', {
+      method: 'POST',
+      body: event.data
+    })
+    console.log(fetchResult)
+    toast.add({
+      title: 'Login',
+      description: 'Login erfolgreich!',
+      color: 'success'
+    })
+  } catch (error) {
+    console.error('Login failed:', error)
+    toast.add({
+      title: 'Login fehlgeschlagen',
+      description: 'Bitte überprüfe deine Anmeldedaten und versuche es erneut.',
+      color: 'error'
+    })
+
+    try{
+      const response = await $fetch('/api/register', {
+        method: 'POST',
+        body: event.data
+      })
+      console.log(response)
+    } catch (error) {
+      console.error('Registration failed:', error)
+       toast.add({
+        title: 'Registrierung fehlgeschlagen',
+        description: 'Es gab ein Problem bei der Registrierung. Bitte versuche es später erneut.',
+        color: 'error'
+      })
+    }
+  }
 }
 </script>
 
