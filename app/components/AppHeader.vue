@@ -15,7 +15,9 @@
 
   const route = useRoute()
 
-  const items = computed<NavigationMenuItem[]>(() => [
+  const {loggedIn, user, session, fetch, clear, openInPopup} = useUserSession()
+
+  const items = computed<NavigationMenuItem[]>(() => { const nav: NavigationMenuItem[] = [
     {
       title: 'Home',
       icon: 'i-mdi-home-variant',
@@ -25,8 +27,8 @@
     {
       title: 'Tickets',
       icon: 'i-mdi-ticket',
-      to: '/tickets',
-      active: route.path === '/tickets'
+      to: '/list',
+      active: route.path === '/list'
     },
     {
       title: 'Kontakt',
@@ -40,7 +42,18 @@
       to: '/login',
       active: route.path === '/login'
     }
-  ])
+  ]
+
+  if(loggedIn && user?.value?.role === 'admin') {
+    nav.push({
+      title: 'Admin',
+      icon: 'i-mdi-shield-account',
+      to: '/admin',
+      active: route.path === '/admin'
+    })
+  }
+  return nav
+  })
 </script>
 
 <style>
