@@ -35,6 +35,8 @@
 import type { FormSubmitEvent } from '@nuxt/ui'
 import * as z from 'zod'
 
+const route = useRoute()
+
 const {loggedIn, user, session, fetch, clear, openInPopup} = useUserSession()
 
 definePageMeta({
@@ -74,7 +76,8 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       color: 'success'
     })
 
-    window.location.reload()
+    await fetch()
+    await navigateTo('/')
   } catch (error) {
     console.error('Login failed:', error)
     toast.add({
@@ -82,21 +85,6 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       description: 'Bitte überprüfe deine Anmeldedaten und versuche es erneut.',
       color: 'error'
     })
-
-    try{
-      const response = await $fetch('/api/register', {
-        method: 'POST',
-        body: event.data
-      })
-      console.log(response)
-    } catch (error) {
-      console.error('Registration failed:', error)
-       toast.add({
-        title: 'Registrierung fehlgeschlagen',
-        description: 'Es gab ein Problem bei der Registrierung. Bitte versuche es später erneut.',
-        color: 'error'
-      })
-    }
   }
 }
 </script>

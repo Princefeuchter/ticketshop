@@ -9,7 +9,9 @@ export default defineNuxtConfig({
   },
 
   modules:['@nuxtjs/color-mode', '@nuxt/ui', 'nuxt-auth-utils', '@nuxtjs/supabase'],
-
+  supabase:{
+    redirect: false
+  },
   css: [
     '~/assets/css/main.css'
   ]
