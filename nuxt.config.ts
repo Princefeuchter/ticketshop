@@ -8,9 +8,16 @@ export default defineNuxtConfig({
     }
   },
 
-  modules:['@nuxtjs/color-mode', '@nuxt/ui', 'nuxt-auth-utils', '@nuxtjs/supabase'],
+  modules:['@nuxtjs/color-mode', '@nuxt/ui', 'nuxt-auth-utils', '@nuxtjs/supabase', 'nuxt-qrcode'],
   supabase:{
     redirect: false
+  },
+  qrcode: {
+    options: {
+      variant: 'pixelated',
+      blackColor: '#000000',
+      whiteColor: '#ffffff', 
+    },
   },
   css: [
     '~/assets/css/main.css'

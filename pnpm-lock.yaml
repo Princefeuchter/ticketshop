@@ -57,6 +57,9 @@ importers:
       '@types/node':
         specifier: ^25.5.0
         version: 25.5.0
+      nuxt-qrcode:
+        specifier: ^0.4.9
+        version: 0.4.9(magicast@0.5.2)(vue@3.5.30(typescript@5.9.3))
 
 packages:
 
@@ -2037,6 +2040,12 @@ packages:
   '@tybys/wasm-util@0.10.1':
     resolution: {integrity: sha512-9tTaPJLSiejZKx+Bmog4uSubteqTvFrVrURwkmHixBo0G4seD0zUxp98E1DzUBJxLQ3NPwXrGKDiVjwx/DpPsg==}
 
+  '@types/dom-webcodecs@0.1.18':
+    resolution: {integrity: sha512-vAvE8C9DGWR+tkb19xyjk1TSUlJ7RUzzp4a9Anu7mwBT+fpyePWK1UxmH14tMO5zHmrnrRIMg5NutnnDztLxgg==}
+
+  '@types/emscripten@1.41.5':
+    resolution: {integrity: sha512-cMQm7pxu6BxtHyqJ7mQZ2kXWV5SLmugybFdHCBbJ5eHzOo6VhBckEgAT3//rP5FwPHNPeEiq4SmQ5ucBwsOo4Q==}
+
   '@types/esrecurse@4.3.1':
     resolution: {integrity: sha512-xJBAbDifo5hpffDBuHl0Y8ywswbiAp/Wi7Y/GtAgSlZyIABppyurxVueOPE8LUQOxdlgi6Zqce7uoEpqNTeiUw==}
 
@@ -2513,6 +2522,9 @@ packages:
   balanced-match@4.0.4:
     resolution: {integrity: sha512-BLrgEcRTwX2o6gGxGOCNyMvGSp35YofuYzw9h1IMTRmKqttAZZVU67bdb9Pr2vUHA8+j3i2tJfjO6C6+4myGTA==}
     engines: {node: 18 || 20 || >=22}
+
+  barcode-detector@2.2.2:
+    resolution: {integrity: sha512-JcSekql+EV93evfzF9zBr+Y6aRfkR+QFvgyzbwQ0dbymZXoAI9+WgT7H1E429f+3RKNncHz2CW98VQtaaKpmfQ==}
 
   bare-events@2.8.2:
     resolution: {integrity: sha512-riJjyv1/mHLIPX4RwiK+oW9/4c3TEUeORHKefKAKnZ5kyslbN+HXowtbaVEqt4IMUB7OXlfixcs6gsFeo/jhiQ==}
@@ -4272,6 +4284,9 @@ packages:
       '@simplewebauthn/server':
         optional: true
 
+  nuxt-qrcode@0.4.9:
+    resolution: {integrity: sha512-87RNM1kYEeMRzJRT6IvfjmNaajNzHSm0bXZIkUyQP0p9Xpx6KNXI5hKUw2nXXn0Uu84mM/QWF7anRyHCEYMVDQ==}
+
   nuxt@4.4.2:
     resolution: {integrity: sha512-iWVFpr/YEqVU/CenqIHMnIkvb2HE/9f+q8oxZ+pj2et+60NljGRClCgnmbvGPdmNFE0F1bEhoBCYfqbDOCim3Q==}
     engines: {node: ^20.19.0 || >=22.12.0}
@@ -4960,6 +4975,9 @@ packages:
   scule@1.3.0:
     resolution: {integrity: sha512-6FtHJEvt+pVMIB9IBY+IcCJ6Z5f1iQnytgyfKMhDKgmzYG+TeH/wx1y3l27rshSbLiSanrR9ffZDrEsmjlQF2g==}
 
+  sdp@3.2.1:
+    resolution: {integrity: sha512-lwsAIzOPlH8/7IIjjz3K0zYBk7aBVVcvjMwt3M4fLxpjMYyy7i3I97SLHebgn4YBjirkzfp3RvRDWSKsh/+WFw==}
+
   secure-json-parse@4.1.0:
     resolution: {integrity: sha512-l4KnYfEyqYJxDwlNVyRfO2E4NTHfMKAWdUuA8J0yve2Dz/E/PdBepY03RvyJpssIpRFwJoCD55wA+mEDs6ByWA==}
 
@@ -5640,6 +5658,10 @@ packages:
     peerDependencies:
       eslint: ^8.57.0 || ^9.0.0 || ^10.0.0
 
+  vue-qrcode-reader@5.7.3:
+    resolution: {integrity: sha512-iSGko42FsEvdHyizBMBs/X+HMO9Z5ONDxjW+mQdoraOR5emRNedmjC5SEJdYzGz8ZP5ME3lwB4iHy3S7MOt5Qw==}
+    engines: {node: '>=18.0.0'}
+
   vue-router@5.0.4:
     resolution: {integrity: sha512-lCqDLCI2+fKVRl2OzXuzdSWmxXFLQRxQbmHugnRpTMyYiT+hNaycV0faqG5FBHDXoYrZ6MQcX87BvbY8mQ20Bg==}
     peerDependencies:
@@ -5671,6 +5693,10 @@ packages:
 
   webpack-virtual-modules@0.6.2:
     resolution: {integrity: sha512-66/V2i5hQanC51vBQKPH4aI8NMAcBW59FVBs+rC7eGHupMyfn34q7rZIE+ETlJ+XTevqfUhVVBgSUNSW2flEUQ==}
+
+  webrtc-adapter@8.2.3:
+    resolution: {integrity: sha512-gnmRz++suzmvxtp3ehQts6s2JtAGPuDPjA1F3a9ckNpG1kYdYuHWYpazoAnL9FS5/B21tKlhkorbdCXat0+4xQ==}
+    engines: {node: '>=6.0.0', npm: '>=3.10.0'}
 
   whatwg-url@5.0.0:
     resolution: {integrity: sha512-saE57nupxk6v3HY35+jzBwYa0rKSy0XR8JSxZPwgLr7ys0IBzhGviA1/TUGJLmSVqs8pb9AnvICXEuOHLprYTw==}
@@ -5803,6 +5829,9 @@ packages:
 
   zod@4.3.6:
     resolution: {integrity: sha512-rftlrkhHZOcjDwkGlnUtZZkvaPHCsDATp4pGpuOOMDaTdDDXF91wuVDJoWoPsKX/3YPQ5fHuF3STjcYyKr+Qhg==}
+
+  zxing-wasm@1.1.3:
+    resolution: {integrity: sha512-MYm9k/5YVs4ZOTIFwlRjfFKD0crhefgbnt1+6TEpmKUDFp3E2uwqGSKwQOd2hOIsta/7Usq4hnpNRYTLoljnfA==}
 
 snapshots:
 
@@ -7910,6 +7939,10 @@ snapshots:
       tslib: 2.8.1
     optional: true
 
+  '@types/dom-webcodecs@0.1.18': {}
+
+  '@types/emscripten@1.41.5': {}
+
   '@types/esrecurse@4.3.1': {}
 
   '@types/estree@1.0.8': {}
@@ -8400,6 +8433,11 @@ snapshots:
   balanced-match@1.0.2: {}
 
   balanced-match@4.0.4: {}
+
+  barcode-detector@2.2.2:
+    dependencies:
+      '@types/dom-webcodecs': 0.1.18
+      zxing-wasm: 1.1.3
 
   bare-events@2.8.2: {}
 
@@ -10298,6 +10336,17 @@ snapshots:
       - bcrypt
       - magicast
 
+  nuxt-qrcode@0.4.9(magicast@0.5.2)(vue@3.5.30(typescript@5.9.3)):
+    dependencies:
+      '@nuxt/kit': 4.4.2(magicast@0.5.2)
+      '@vueuse/core': 14.2.1(vue@3.5.30(typescript@5.9.3))
+      defu: 6.1.4
+      uqr: 0.1.2
+      vue-qrcode-reader: 5.7.3
+    transitivePeerDependencies:
+      - magicast
+      - vue
+
   nuxt@4.4.2(@babel/core@7.29.0)(@babel/plugin-syntax-jsx@7.28.6(@babel/core@7.29.0))(@parcel/watcher@2.5.6)(@types/node@25.5.0)(@vue/compiler-sfc@3.5.30)(better-sqlite3@12.8.0)(cac@6.7.14)(db0@0.3.4(better-sqlite3@12.8.0))(eslint@10.1.0(jiti@2.6.1))(ioredis@5.10.1)(lightningcss@1.32.0)(magicast@0.5.2)(optionator@0.9.4)(rollup-plugin-visualizer@7.0.1(rollup@4.60.0))(rollup@4.60.0)(terser@5.46.1)(typescript@5.9.3)(vite@7.3.1(@types/node@25.5.0)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.46.1)(yaml@2.8.3))(yaml@2.8.3):
     dependencies:
       '@dxup/nuxt': 0.4.0(magicast@0.5.2)(typescript@5.9.3)
@@ -11211,6 +11260,8 @@ snapshots:
 
   scule@1.3.0: {}
 
+  sdp@3.2.1: {}
+
   secure-json-parse@4.1.0: {}
 
   semver@6.3.1: {}
@@ -11955,6 +12006,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  vue-qrcode-reader@5.7.3:
+    dependencies:
+      barcode-detector: 2.2.2
+      webrtc-adapter: 8.2.3
+
   vue-router@5.0.4(@vue/compiler-sfc@3.5.30)(vue@3.5.30(typescript@5.9.3)):
     dependencies:
       '@babel/generator': 7.29.1
@@ -11993,6 +12049,10 @@ snapshots:
   webidl-conversions@3.0.1: {}
 
   webpack-virtual-modules@0.6.2: {}
+
+  webrtc-adapter@8.2.3:
+    dependencies:
+      sdp: 3.2.1
 
   whatwg-url@5.0.0:
     dependencies:
@@ -12116,3 +12176,7 @@ snapshots:
       readable-stream: 4.7.0
 
   zod@4.3.6: {}
+
+  zxing-wasm@1.1.3:
+    dependencies:
+      '@types/emscripten': 1.41.5

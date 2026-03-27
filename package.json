@@ -27,6 +27,7 @@
     "@iconify-json/lucide": "^1.2.98",
     "@nuxtjs/color-mode": "^4.0.0",
     "@nuxtjs/tailwindcss": "^6.14.0",
-    "@types/node": "^25.5.0"
+    "@types/node": "^25.5.0",
+    "nuxt-qrcode": "^0.4.9"
   }
 }

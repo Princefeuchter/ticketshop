@@ -7,6 +7,15 @@
       Eingeloggt seit {{ session?.loggedInAt }}
     </p>
     <p class="text-center mt-4">Du bist eingeloggt und kannst deine Tickets verwalten.</p>
+
+    <div>
+      <Qrcode
+        :value="user?.login || ''"
+        :size="200"
+        class="mx-auto mt-6 h-50 w-50"
+      />
+    </div>
+
     <div class="flex justify-center mt-6">
       <button @click="clear" class="px-4 py-2 bg-red-500 text-white rounded">Logout</button>
     </div>
