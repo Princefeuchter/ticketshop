@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  if(data.find(ticket => ticket.id === id)) {
+  if(data.find(ticket => ticket.ticket_code === id)) {
     return { valid: true }
   } else {
     return { valid: false }
