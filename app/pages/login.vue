@@ -13,26 +13,25 @@
   </div>
   <div v-else class="text-center mt-10">
     <h1 class="text-4xl font-bold">Du bist nicht eingeloggt</h1>
-    <p class="mt-4">Bitte logge dich ein, um deine Tickets zu verwalten.</p>
     <div class="flex justify-center mt-6">
-      <UForm :schema="login" :state="state" class="space-y-4" @submit="onSubmit">
-        <UFormField class="" label="Email">
-          <UInput v-model="state.email" type="email" placeholder="Deine Email" />
-        </UFormField>
-        <UFormField class="mt-4" label="Password">
-          <UInput v-model="state.password" type="password" placeholder="Dein Passwort" />
-        </UFormField>
-        <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Login</button>
+      <UPageCard class="space-y-4" @submit="onSubmit">
+        <UAuthForm 
+          :schema="login"
+          :fields="fields"
+          title="Anmelden"
+          description="Bitte logge dich ein, um deine Tickets zu verwalten."          
+          @submit="onSubmit"
+          />
         <div class="mt-6 text-center">
           <p>Noch keinen Account? <NuxtLink to="/register" class="text-blue-500 hover:underline">Registrieren</NuxtLink></p>
       </div>
-      </UForm>
+      </UPageCard>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import type { FormSubmitEvent } from '@nuxt/ui'
+import type { FormSubmitEvent, AuthFormField } from '@nuxt/ui'
 import * as z from 'zod'
 
 const route = useRoute()
@@ -52,14 +51,23 @@ const login = z.object({
   password: z.string().min(6, 'Passwort muss mindestens 6 Zeichen lang sein')
 })
 
-const state = reactive({
-  email: '',
-  password: ''
-})
-
 type Schema = z.infer<typeof login>
 
 const toast = useToast()
+
+const fields: AuthFormField[] = [{
+  name: 'email',
+  type: 'email',
+  label: 'Email',
+  placeholder: 'Deine Email',
+  required: true
+  }, {
+  name: 'password',
+  type: 'password',
+  label: 'Password',
+  placeholder: 'Dein Passwort',
+  required: true
+}]
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
   console.log(event.data)
