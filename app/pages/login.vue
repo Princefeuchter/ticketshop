@@ -8,13 +8,17 @@
     </p>
     <p class="text-center mt-4">Du bist eingeloggt und kannst deine Tickets verwalten.</p>
 
-    <div>
-      <Qrcode
-        :value="user?.login || ''"
-        :size="200"
-        class="mx-auto mt-6 h-50 w-50"
-      />
-    </div>
+    <template v-if="tickets.length">
+      <div v-for="ticket in tickets" :key="ticket.ticket_code" class="border p-4 rounded mt-4">
+        <Qrcode
+          :value="ticket.ticket_code ? getTicketValidationUrl(ticket.ticket_code) : 'Kein QR-Code verfügbar'"
+          size="200"
+          level="H"
+          class=" h-50 w-50 mx-auto mt-6"
+        />
+      </div>
+    </template>
+    <p v-else-if="!isLoadingTickets" class="text-center mt-4">Du hast aktuell keine Tickets.</p>
 
     <div class="flex justify-center mt-6">
       <button @click="clear" class="px-4 py-2 bg-red-500 text-white rounded">Logout</button>
@@ -43,9 +47,11 @@
 import type { FormSubmitEvent, AuthFormField } from '@nuxt/ui'
 import * as z from 'zod'
 
-const route = useRoute()
+const {loggedIn, user, session, fetch, clear} = useUserSession()
+const requestUrl = useRequestURL()
+const tickets = ref<Ticket[]>([])
+const isLoadingTickets = ref(false)
 
-const {loggedIn, user, session, fetch, clear, openInPopup} = useUserSession()
 
 definePageMeta({
     title: 'Login',
@@ -102,6 +108,45 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       description: 'Bitte überprüfe deine Anmeldedaten und versuche es erneut.',
       color: 'error'
     })
+  }
+}
+
+async function loadTicketsForLoggedInUser() {
+  if (!loggedIn.value) {
+    tickets.value = []
+    return
+  }
+
+  isLoadingTickets.value = true
+  tickets.value = await getUserTickets()
+  isLoadingTickets.value = false
+}
+
+watch([() => loggedIn.value, () => user.value?.id], async () => {
+  await loadTicketsForLoggedInUser()
+}, { immediate: true })
+
+function getTicketValidationUrl(ticketCode: string) {
+  return new URL(`/validate/${encodeURIComponent(ticketCode)}`, requestUrl.origin).toString()
+}
+
+async function getUserTickets(): Promise<Ticket[]> {
+  try {
+    await fetch()
+    if(!user.value?.id) {
+      return []
+    }
+    const tickets = await $fetch<Ticket[]>('/api/userTicket', {
+      method: 'POST',
+      body: {
+        userId: user.value.id
+      }
+    })
+    console.log('User Tickets:', tickets)
+    return tickets || []
+  } catch (error) {
+    console.error('Failed to fetch user tickets:', error)
+    return []
   }
 }
 </script>

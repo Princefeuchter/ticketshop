@@ -18,11 +18,12 @@ export default defineEventHandler(async (event) => {
         console.log('User found:', data);
         await setUserSession(event, {
             user: {
+                id: data.id,
                 login: data.email,
                 role: data.role
             },
             loggedInAt: new Date(),
-            expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24), // 24 hours
+            expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 0.5), // 24 hours
         });
         return { success: true };
     }else{

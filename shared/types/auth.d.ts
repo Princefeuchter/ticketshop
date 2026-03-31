@@ -1,5 +1,6 @@
 declare module '#auth-utils' {
   export interface User {
+    id: number
     login?: string
     role?: 'admin' | 'customer'
   }

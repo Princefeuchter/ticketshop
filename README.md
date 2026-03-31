@@ -4,6 +4,14 @@ Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduct
 
 ## Setup
 
+Use Node.js 22 (recommended) or 20 for local development.
+
+```bash
+nvm use
+```
+
+If you do not have `.nvmrc` support, install and run with Node 22 manually before installing dependencies.
+
 Make sure to install dependencies:
 
 ```bash
