@@ -55,8 +55,8 @@ const items = computed<NavigationMenuItem[]>(() => {
       active: route.path === '/'
     },
     {
-      label: loggedIn.value ? 'Profle' : 'Login',
-      title: loggedIn.value ? 'Profle' : 'Login',
+      label: loggedIn.value ? 'Profile' : 'Login',
+      title: loggedIn.value ? 'Profile' : 'Login',
       icon: 'i-mdi-account',
       to: '/login',
       active: route.path === '/login'
