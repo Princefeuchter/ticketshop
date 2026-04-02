@@ -55,22 +55,8 @@ const items = computed<NavigationMenuItem[]>(() => {
       active: route.path === '/'
     },
     {
-      label: 'Tickets',
-      title: 'Tickets',
-      icon: 'i-mdi-ticket',
-      to: '/list',
-      active: route.path === '/list'
-    },
-    {
-      label: 'Kontakt',
-      title: 'Kontakt',
-      icon: 'i-mdi-email',
-      to: '/contact',
-      active: route.path === '/contact'
-    },
-    {
-      label: 'Login',
-      title: 'Login',
+      label: loggedIn.value ? 'Profle' : 'Login',
+      title: loggedIn.value ? 'Profle' : 'Login',
       icon: 'i-mdi-account',
       to: '/login',
       active: route.path === '/login'

@@ -42,6 +42,15 @@ const { data, pending, error } = await useAsyncData('ticket-validation', () =>
 )
 
 const isValid = computed(() => data.value?.valid === true)
+const validationErrorMessage = computed(() => {
+  const currentError = error.value as {
+    data?: { message?: string }
+    statusMessage?: string
+    message?: string
+  } | null
+
+  return currentError?.data?.message || currentError?.statusMessage || currentError?.message || null
+})
 const validationState = computed<'pending' | 'error' | 'valid' | 'invalid'>(() => {
   if (pending.value) {
     return 'pending'
@@ -60,6 +69,10 @@ const statusTitle = computed(() => {
   }
 
   if (validationState.value === 'error') {
+    if (validationErrorMessage.value === 'Ticket wurde bereits validiert') {
+      return 'Ticket bereits validiert'
+    }
+
     return 'Validierung fehlgeschlagen'
   }
 
@@ -76,7 +89,7 @@ const statusMessage = computed(() => {
   }
 
   if (validationState.value === 'error') {
-    return 'Die Pruefung konnte nicht abgeschlossen werden. Bitte Seite neu laden.'
+    return validationErrorMessage.value || 'Die Pruefung konnte nicht abgeschlossen werden. Bitte Seite neu laden.'
   }
 
   if (validationState.value === 'valid') {
