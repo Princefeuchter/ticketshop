@@ -127,7 +127,7 @@ watch([() => loggedIn.value, () => user.value?.id], async () => {
 }, { immediate: true })
 
 function getTicketValidationUrl(ticketCode: string) {
-  return new URL(`/validate/${encodeURIComponent(ticketCode)}`, requestUrl.origin).toString()
+  return new URL(`/validate/${encodeURIComponent(ticketCode)}`, 'http://192.168.147.27:3000').toString()
 }
 
 async function getUserTickets(): Promise<Ticket[]> {
