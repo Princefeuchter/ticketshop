@@ -116,7 +116,7 @@ export default defineEventHandler(async (event) => {
 
   const { data: orderItem, error: orderItemError } = await db
     .from('order_items')
-    .select('id, event_id, order_id')
+    .select('id, event_id, order_id, quantity')
     .eq('id', orderItemId)
     .maybeSingle()
 
@@ -176,6 +176,7 @@ export default defineEventHandler(async (event) => {
   }
 
   const eventId = Number(orderItem.event_id)
+  const ticketQuantity = Number(orderItem.quantity || 1)
 
   let ticket
   try {
@@ -195,6 +196,41 @@ export default defineEventHandler(async (event) => {
       data: {
         details: errorWithData.data?.details || errorWithData.message || null,
         code: errorWithData.data?.code || null,
+      },
+    })
+  }
+
+  const { data: eventRow, error: eventReadError } = await db
+    .from('events')
+    .select('id, tickets_sold')
+    .eq('id', eventId)
+    .maybeSingle()
+
+  if (eventReadError || !eventRow) {
+    throw createError({
+      statusCode: 500,
+      message: 'Event sold counter could not be updated',
+      data: {
+        details: eventReadError?.message || null,
+        code: (eventReadError as { code?: string } | null)?.code || null,
+      },
+    })
+  }
+
+  const { error: eventUpdateError } = await db
+    .from('events')
+    .update({
+      tickets_sold: Number(eventRow.tickets_sold || 0) + ticketQuantity,
+    })
+    .eq('id', eventId)
+
+  if (eventUpdateError) {
+    throw createError({
+      statusCode: 500,
+      message: 'Event sold counter could not be updated',
+      data: {
+        details: eventUpdateError.message,
+        code: (eventUpdateError as { code?: string }).code || null,
       },
     })
   }

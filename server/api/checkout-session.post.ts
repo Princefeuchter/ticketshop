@@ -88,6 +88,59 @@ export default defineEventHandler(async (event) => {
     })
   }
 
+  const { data: eventRow, error: eventError } = await db
+    .from('events')
+    .select('id, capacity, tickets_sold, is_active')
+    .eq('id', resolvedEventId)
+    .maybeSingle()
+
+  if (eventError) {
+    throw createError({
+      statusCode: 500,
+      message: 'Event availability could not be verified',
+      data: {
+        details: eventError.message,
+        code: (eventError as { code?: string }).code || null,
+      },
+    })
+  }
+
+  if (!eventRow) {
+    throw createError({
+      statusCode: 400,
+      message: 'Selected event does not exist',
+    })
+  }
+
+  const isActive = eventRow.is_active === true || Number(eventRow.is_active) === 1
+  if (!isActive) {
+    throw createError({
+      statusCode: 400,
+      message: 'Event is not active',
+    })
+  }
+
+  const capacity = Number(eventRow.capacity || 0)
+  const ticketsSold = Number(eventRow.tickets_sold || 0)
+  const remainingCapacity = capacity - ticketsSold
+
+  if (remainingCapacity <= 0) {
+    throw createError({
+      statusCode: 409,
+      message: 'Event is sold out',
+    })
+  }
+
+  if (quantity > remainingCapacity) {
+    throw createError({
+      statusCode: 409,
+      message: 'Not enough tickets available',
+      data: {
+        remainingCapacity,
+      },
+    })
+  }
+
   if (resolvedOrderItemId === 0) {
     let unitPriceCents = 0
     try {
@@ -135,7 +188,7 @@ export default defineEventHandler(async (event) => {
       .from('order_items')
       .insert({
         order_id: orderRow.id,
-        event_id: resolvedEventId,
+        event_id: Number(eventRow.id),
         quantity,
         unit_price_cents: unitPriceCents,
       })
