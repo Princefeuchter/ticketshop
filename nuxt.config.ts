@@ -9,6 +9,8 @@ export default defineNuxtConfig({
       .map((id) => id.trim())
       .filter(Boolean),
     stripeDefaultPriceId: process.env.NUXT_STRIPE_DEFAULT_PRICE_ID || process.env.STRIPE_DEFAULT_PRICE_ID || '',
+    stripeDefaultEventId: Number(process.env.NUXT_STRIPE_DEFAULT_EVENT_ID || process.env.STRIPE_DEFAULT_EVENT_ID || 1),
+    stripeDefaultOrderItemId: Number(process.env.NUXT_STRIPE_DEFAULT_ORDER_ITEM_ID || process.env.STRIPE_DEFAULT_ORDER_ITEM_ID || 1),
     public: {
       apiBase: '/api',
       stripePublishableKey: process.env.NUXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || 'pk_test_51THj5VRqojlaKtAcaH3JBXZGQYehhXkqRCJBzaRF1j0wmRbkFGo8SJPj3QtYgyO8pe1wSRwbGbDRSRNZUyR8c5Nf00FQj8OB0l'

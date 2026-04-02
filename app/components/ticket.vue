@@ -11,7 +11,9 @@
         'Kein Plan'
     ]"
     :button="{
-        label: 'Dabei sein!'
+        label: 'Dabei sein!',
+        to: '/payment'
+        
     }"/>
 
 </template>
