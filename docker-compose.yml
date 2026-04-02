@@ -1,0 +1,42 @@
+services:
+  app:
+    container_name: ticketshop-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SUPABASE_URL: ${SUPABASE_URL:-${NUXT_SUPABASE_URL:-}}
+        SUPABASE_KEY: ${SUPABASE_KEY:-${NUXT_SUPABASE_KEY:-}}
+        SUPABASE_SERVICE_KEY: ${SUPABASE_SERVICE_KEY:-${NUXT_SUPABASE_SERVICE_KEY:-}}
+        NUXT_SUPABASE_URL: ${NUXT_SUPABASE_URL:-${SUPABASE_URL:-}}
+        NUXT_SUPABASE_KEY: ${NUXT_SUPABASE_KEY:-${SUPABASE_KEY:-}}
+        NUXT_SUPABASE_SERVICE_KEY: ${NUXT_SUPABASE_SERVICE_KEY:-${SUPABASE_SERVICE_KEY:-}}
+    restart: unless-stopped
+    env_file:
+      - .env.deploy
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 3000
+    expose:
+      - "3000"
+
+  caddy:
+    container_name: ticketshop-proxy
+    image: caddy:2.9-alpine
+    restart: unless-stopped
+    depends_on:
+      - app
+    env_file:
+      - .env.deploy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./deployment/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  caddy_data:
+  caddy_config:

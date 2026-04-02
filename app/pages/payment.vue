@@ -39,11 +39,17 @@
   let successRedirectTimer: ReturnType<typeof setTimeout> | null = null
 
   const createCheckoutSession = async (): Promise<string> => {
-    const { clientSecret } = await $fetch<{ clientSecret: string }>('/api/checkout-session', {
-      method: 'POST',
-    })
+    try {
+      const { clientSecret } = await $fetch<{ clientSecret: string }>('/api/checkout-session', {
+        method: 'POST',
+      })
 
-    return clientSecret
+      return clientSecret
+    } catch (error) {
+      const fetchError = error as { data?: { message?: string; details?: string } ; message?: string }
+      const details = fetchError.data?.details || fetchError.data?.message || fetchError.message || 'Unknown checkout error'
+      throw new Error(details)
+    }
   }
 
   onMounted(async () => {

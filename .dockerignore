@@ -1,0 +1,28 @@
+# VCS
+.git
+.gitignore
+
+# Dependencies and local build output
+node_modules
+.nuxt
+.output
+.nitro
+.cache
+dist
+
+# OS/editor
+.DS_Store
+.idea
+.fleet
+
+# Logs
+logs
+*.log
+
+# Local env files
+.env
+.env.*
+!.env.example
+
+# Copilot/session artifacts
+.memories

@@ -1,34 +1,31 @@
-# Build Stage 1
-
 FROM node:22-alpine AS build
 WORKDIR /app
 
 RUN corepack enable
-
-# Copy package.json and your lockfile, here we add pnpm-lock.yaml for illustration
-COPY package.json pnpm-lock.yaml .npmrc ./
-
-# Install dependencies
-RUN pnpm i
-
-# Copy the entire project
+ARG SUPABASE_URL
+ARG SUPABASE_KEY
+ARG SUPABASE_SERVICE_KEY
+ARG NUXT_SUPABASE_URL
+ARG NUXT_SUPABASE_KEY
+ARG NUXT_SUPABASE_SERVICE_KEY
+ENV SUPABASE_URL=${SUPABASE_URL}
+ENV SUPABASE_KEY=${SUPABASE_KEY}
+ENV SUPABASE_SERVICE_KEY=${SUPABASE_SERVICE_KEY}
+ENV NUXT_SUPABASE_URL=${NUXT_SUPABASE_URL}
+ENV NUXT_SUPABASE_KEY=${NUXT_SUPABASE_KEY}
+ENV NUXT_SUPABASE_SERVICE_KEY=${NUXT_SUPABASE_SERVICE_KEY}
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
 COPY . ./
-
-# Build the project
 RUN pnpm run build
 
-# Build Stage 2
-
-FROM node:22-alpine
+FROM node:22-alpine AS runtime
 WORKDIR /app
-
-# Only `.output` folder is needed from the build stage
-COPY --from=build /app/.output/ ./
-
-# Change the port and host
-ENV PORT=80
+ENV NODE_ENV=production
+ENV PORT=3000
 ENV HOST=0.0.0.0
+COPY --from=build /app/.output ./.output
 
-EXPOSE 80
+EXPOSE 3000
 
-CMD ["node", "/app/server/index.mjs"]
+CMD ["node", ".output/server/index.mjs"]

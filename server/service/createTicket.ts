@@ -16,10 +16,19 @@ type CreateTicketInput = {
 export async function createTicket(event: any, ticket: CreateTicketInput) {
     const qrCodeId = generateQRCodeId();
 
+    const serviceRoleKey = process.env.NUXT_SUPABASE_SERVICE_KEY || process.env.SUPABASE_SERVICE_KEY || '';
+    const canUseServiceRole = serviceRoleKey.length > 0
+        && !serviceRoleKey.includes('your-service-role-key')
+        && !serviceRoleKey.startsWith('sb_service_key_');
+
     let db;
-    try {
-        db = await serverSupabaseServiceRole(event);
-    } catch {
+    if (canUseServiceRole) {
+        try {
+            db = await serverSupabaseServiceRole(event);
+        } catch {
+            db = await serverSupabaseClient(event);
+        }
+    } else {
         db = await serverSupabaseClient(event);
     }
     
