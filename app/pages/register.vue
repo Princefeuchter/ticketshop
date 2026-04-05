@@ -38,6 +38,7 @@
     }, 'Ungültiges Geburtsdatum')
   }).refine((data) => data.password === data.confirmPassword, {
     message: 'Passwörter müssen übereinstimmen',
+    path: ['confirmPassword']
   })
 
   const state = reactive({
