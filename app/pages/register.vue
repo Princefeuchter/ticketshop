@@ -1,6 +1,10 @@
 <template>
   <h1 class="text-4xl font-bold text-center mt-10">Registrieren</h1>
-  <div class="flex justify-center mt-6">
+  <div v-if="isCheckingSession" class="flex flex-col items-center mt-8 gap-3">
+    <div class="h-7 w-7 rounded-full border-2 border-gray-300 border-t-green-500 animate-spin"></div>
+    <p class="text-sm text-gray-600">Seite wird geladen...</p>
+  </div>
+  <div v-else class="flex justify-center mt-6">
     <UForm :schema="register" :state="state" class="space-y-4" @submit="onSubmit">
       <UFormField label="Vollständiger Name" name="fullname">
         <UInput v-model="state.fullname" type="text" placeholder="Dein vollständiger Name" />
@@ -49,6 +53,18 @@
     birthdate: ''
   })
 
+  const { loggedIn, fetch } = useUserSession()
+  const isCheckingSession = ref(true)
+
+  onMounted(async () => {
+    await fetch()
+    if (loggedIn.value) {
+      await navigateTo('/login')
+      return
+    }
+    isCheckingSession.value = false
+  })
+
   async function onSubmit(event: FormSubmitEvent<z.infer<typeof register>>) {
     console.log(event.data)
 
@@ -79,16 +95,7 @@
     description: 'Erstellen Sie ein neues Konto, um Tickets zu kaufen.',
     navOrder: 3,
     type: 'primary',
-    icon: 'i-mdi-account-plus',
-    middleware: [
-      defineNuxtRouteMiddleware(async () => {
-        const {loggedIn, fetch} = useUserSession()
-        await fetch()
-        if(loggedIn.value) {
-          return navigateTo('/login')
-        }
-      })
-    ]
+    icon: 'i-mdi-account-plus'
   })
 
 </script>
