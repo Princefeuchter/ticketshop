@@ -5,7 +5,7 @@ export default defineEventHandler(async (event) => {
     const { email, password, fullname, birthdate } = await readBody(event);
     const db = await serverSupabaseClient(event);
     console.log(password);
-    if(password == ''){
+    if (password == '') {
         console.log('No password provided');
         throw createError({
             statusCode: 400,

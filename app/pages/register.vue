@@ -2,19 +2,19 @@
   <h1 class="text-4xl font-bold text-center mt-10">Registrieren</h1>
   <div class="flex justify-center mt-6">
     <UForm :schema="register" :state="state" class="space-y-4" @submit="onSubmit">
-      <UFormField label="Vollständiger Name">
+      <UFormField label="Vollständiger Name" name="fullname">
         <UInput v-model="state.fullname" type="text" placeholder="Dein vollständiger Name" />
       </UFormField>
-      <UFormField label="Email">
+      <UFormField label="Email" name="email">
         <UInput v-model="state.email" type="email" placeholder="Deine Email" />
       </UFormField>
-      <UFormField label="Geburtsdatum">
+      <UFormField label="Geburtsdatum" name="birthdate">
         <UInput v-model="state.birthdate" type="date" placeholder="Dein Geburtsdatum" />
       </UFormField>
-      <UFormField label="Passwort">
+      <UFormField label="Passwort" name="password">
         <UInput v-model="state.password" type="password" placeholder="Dein Passwort" />
       </UFormField>
-      <UFormField label="Passwort bestätigen">
+      <UFormField label="Passwort bestätigen" name="confirmPassword">
         <UInput v-model="state.confirmPassword" type="password" placeholder="Passwort bestätigen" />
       </UFormField>
       <button type="submit" class="px-4 py-2 bg-green-500 text-white rounded">Registrieren</button>
