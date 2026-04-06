@@ -85,14 +85,11 @@ const fields: AuthFormField[] = [{
 }]
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
-  console.log(event.data)
-
   try{
-    const fetchResult = await $fetch('/api/login', {
+    await $fetch('/api/login', {
       method: 'POST',
       body: event.data
     })
-    console.log(fetchResult)
     toast.add({
       title: 'Login',
       description: 'Login erfolgreich!',
@@ -143,7 +140,6 @@ async function getUserTickets(): Promise<Ticket[]> {
         userId: user.value.id
       }
     })
-    console.log('User Tickets:', tickets)
     return tickets || []
   } catch (error) {
     console.error('Failed to fetch user tickets:', error)
