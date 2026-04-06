@@ -2,12 +2,12 @@
     <UPricingPlan
         title="Frühlingsfest"
         class="ticket-plan w-96"
-        description="Live-Musik, Getränke und Festivalstimmung in Leveste - dein Ticket fürr einen unvergesslichen Abend."
+        description="Live-Musik, Getränke und Festivalstimmung in Leveste - dein Ticket für einen unvergesslichen Abend."
         :badge="isSoldOut ? 'Ausverkauft' : 'Noch verfuegbar!'"
         price="15€"
         :features="[
             'Eintritt zum kompletten Eventgelände',
-            'Live-Bands und DJ-Stage bis spaet in die Nacht',
+            'Biergarten mit Live-Musik',
             'Snacks und Getraenke von lokalen Anbietern',
             'Schneller Einlass per QR-Ticket'
         ]"
