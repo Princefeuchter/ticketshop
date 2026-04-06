@@ -1,6 +1,6 @@
 <template>
     <UPricingPlan
-        title="Frühlingsfest"
+        title="Bierfest"
         class="ticket-plan w-96"
         description="Live-Musik, Getränke und Festivalstimmung in Leveste - dein Ticket für einen unvergesslichen Abend."
         :badge="isSoldOut ? 'Ausverkauft' : 'Noch verfuegbar!'"
