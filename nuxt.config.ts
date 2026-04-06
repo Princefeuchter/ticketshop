@@ -2,8 +2,9 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  runtimeConfig:{
+  runtimeConfig: {
     stripeSecretKey: process.env.NUXT_STRIPE_SECRET_KEY || process.env.STRIPE_SECRET_KEY || '',
+    checkoutReturnOrigin: process.env.NUXT_CHECKOUT_RETURN_ORIGIN || process.env.CHECKOUT_RETURN_ORIGIN || '',
     stripeAllowedPriceIds: (process.env.NUXT_STRIPE_ALLOWED_PRICE_IDS || process.env.STRIPE_ALLOWED_PRICE_IDS || '')
       .split(',')
       .map((id) => id.trim())
@@ -36,15 +37,15 @@ export default defineNuxtConfig({
     host: '0.0.0.0',
     port: 80
   },
-  modules:['@nuxtjs/color-mode', '@nuxt/ui', 'nuxt-auth-utils', '@nuxtjs/supabase', 'nuxt-qrcode'],
-  supabase:{
+  modules: ['@nuxtjs/color-mode', '@nuxt/ui', 'nuxt-auth-utils', '@nuxtjs/supabase', 'nuxt-qrcode'],
+  supabase: {
     redirect: false
   },
   qrcode: {
     options: {
       variant: 'pixelated',
       blackColor: '#000000',
-      whiteColor: '#ffffff', 
+      whiteColor: '#ffffff',
     },
   },
   css: [

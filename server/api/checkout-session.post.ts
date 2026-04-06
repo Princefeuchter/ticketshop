@@ -24,9 +24,9 @@ export default defineEventHandler(async (event) => {
     ? rawAllowedPriceIds.filter((value): value is string => typeof value === 'string' && value.length > 0)
     : typeof rawAllowedPriceIds === 'string'
       ? rawAllowedPriceIds
-          .split(',')
-          .map((value: string) => value.trim())
-          .filter((value: string) => value.length > 0)
+        .split(',')
+        .map((value: string) => value.trim())
+        .filter((value: string) => value.length > 0)
       : []
 
   if (!config.stripeSecretKey) {
@@ -215,13 +215,39 @@ export default defineEventHandler(async (event) => {
     quantity,
   }]
 
-  const origin = getRequestHeader(event, 'origin') || 'http://localhost:3000'
+  const configuredOrigin = String(config.checkoutReturnOrigin || '').trim()
+  let returnOrigin = ''
+
+  if (configuredOrigin.length > 0) {
+    let parsedOrigin: URL
+    try {
+      parsedOrigin = new URL(configuredOrigin)
+    }
+    catch {
+      throw createError({
+        statusCode: 500,
+        message: 'Invalid checkout return origin configuration',
+      })
+    }
+
+    if (parsedOrigin.protocol !== 'https:' && parsedOrigin.protocol !== 'http:') {
+      throw createError({
+        statusCode: 500,
+        message: 'Checkout return origin must use http or https',
+      })
+    }
+
+    returnOrigin = parsedOrigin.origin
+  }
+  else {
+    returnOrigin = getRequestURL(event).origin
+  }
 
   const session = await stripe.checkout.sessions.create({
     mode: 'payment',
     ui_mode: 'embedded_page',
     line_items: lineItems,
-    return_url: `${origin}/payment?session_id={CHECKOUT_SESSION_ID}`,
+    return_url: `${returnOrigin}/payment?session_id={CHECKOUT_SESSION_ID}`,
     customer_email: userSession.user.login,
     metadata: {
       userId: String(userSession.user.id),
