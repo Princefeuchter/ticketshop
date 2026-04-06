@@ -18,7 +18,7 @@ export default defineNuxtConfig({
     },
     session: {
       password: process.env.NUXT_SESSION_PASSWORD || '',
-      maxAge: 60 * 60 * 24,
+      maxAge: 60 * 60 * 2,
       cookie: {
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'lax'
