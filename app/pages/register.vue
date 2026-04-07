@@ -16,10 +16,42 @@
         <UInput v-model="state.birthdate" type="date" placeholder="Dein Geburtsdatum" />
       </UFormField>
       <UFormField label="Passwort" name="password">
-        <UInput v-model="state.password" type="password" placeholder="Dein Passwort" />
+        <UInput
+          v-model="state.password"
+          :type="showPasswords ? 'text' : 'password'"
+          placeholder="Dein Passwort"
+        >
+          <template #trailing>
+            <UButton
+              color="neutral"
+              variant="ghost"
+              square
+              :icon="showPasswords ? 'i-lucide-eye-off' : 'i-lucide-eye'"
+              :aria-label="showPasswords ? 'Passwort verbergen' : 'Passwort anzeigen'"
+              :title="showPasswords ? 'Passwort verbergen' : 'Passwort anzeigen'"
+              @click="showPasswords = !showPasswords"
+            />
+          </template>
+        </UInput>
       </UFormField>
       <UFormField label="Passwort bestätigen" name="confirmPassword">
-        <UInput v-model="state.confirmPassword" type="password" placeholder="Passwort bestätigen" />
+        <UInput
+          v-model="state.confirmPassword"
+          :type="showPasswords ? 'text' : 'password'"
+          placeholder="Passwort bestätigen"
+        >
+          <template #trailing>
+            <UButton
+              color="neutral"
+              variant="ghost"
+              square
+              :icon="showPasswords ? 'i-lucide-eye-off' : 'i-lucide-eye'"
+              :aria-label="showPasswords ? 'Passwort verbergen' : 'Passwort anzeigen'"
+              :title="showPasswords ? 'Passwort verbergen' : 'Passwort anzeigen'"
+              @click="showPasswords = !showPasswords"
+            />
+          </template>
+        </UInput>
       </UFormField>
       <button type="submit" class="px-4 py-2 bg-green-500 text-white rounded">Registrieren</button>
 
@@ -52,6 +84,7 @@
     fullname: '',
     birthdate: ''
   })
+  const showPasswords = ref(false)
 
   const { loggedIn, fetch } = useUserSession()
   const isCheckingSession = ref(true)
