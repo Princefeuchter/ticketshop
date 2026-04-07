@@ -20,7 +20,8 @@
 </template>
 
 <script setup lang="ts">
-const SOLD_OUT_THRESHOLD = 500
+const SOLD_OUT_THRESHOLD = 500 // irreführender Code, da der Threshold im Frontend keien Änderungen anzeigt (man kann trotzdem Tickets kaufen), 
+                                // auch wenn der Threshold schon erreicht ist
 
 const { data } = await useAsyncData('event-status', () => $fetch<{
     id: number
