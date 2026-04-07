@@ -8,6 +8,9 @@
     <UForm :schema="register" :state="state" class="space-y-4" @submit="onSubmit">
       <UFormField label="Vollständiger Name" name="fullname">
         <UInput v-model="state.fullname" type="text" placeholder="Dein vollständiger Name" />
+        <template #error="{ error }">
+          <span class="whitespace-pre-line">{{ error }}</span>
+        </template>
       </UFormField>
       <UFormField label="Email" name="email">
         <UInput v-model="state.email" type="email" placeholder="Deine Email" />
@@ -33,6 +36,9 @@
             />
           </template>
         </UInput>
+        <template #error="{ error }">
+          <span class="whitespace-pre-line">{{ error }}</span>
+        </template>
       </UFormField>
       <UFormField label="Passwort bestätigen" name="confirmPassword">
         <UInput
@@ -52,6 +58,9 @@
             />
           </template>
         </UInput>
+        <template #error="{ error }">
+          <span class="whitespace-pre-line">{{ error }}</span>
+        </template>
       </UFormField>
       <button type="submit" class="px-4 py-2 bg-green-500 text-white rounded">Registrieren</button>
 
@@ -65,9 +74,9 @@
 
   const register = z.object({
     email: z.email(),
-    password: z.string().min(6, 'Passwort muss mindestens 6 Zeichen lang sein'),
-    confirmPassword: z.string().min(6, 'Passwort muss mindestens 6 Zeichen lang sein'),
-    fullname: z.string().min(2, 'Vollständiger Name muss mindestens 2 Zeichen lang sein'),
+    password: z.string().min(6, 'Passwort muss mindestens\n 6 Zeichen lang sein'),
+    confirmPassword: z.string().min(6, 'Passwort muss mindestens\n6 Zeichen lang sein'),
+    fullname: z.string().min(2, 'Vollständiger Name muss\nmindestens 2 Zeichen lang sein'),
     birthdate: z.string().refine((date) => {
       const parsedDate = Date.parse(date)
       return !isNaN(parsedDate) && parsedDate < Date.now()
